@@ -1,13 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// 定义链表节点
 struct Node {
     int data;
     struct Node* next;
 };
 
-// 插入节点到链表尾部
 void insert(struct Node** head, int value) {
     struct Node* newNode = (struct Node*)malloc(sizeof(struct Node));
     newNode->data = value;
@@ -24,7 +22,6 @@ void insert(struct Node** head, int value) {
     }
 }
 
-// 反转链表
 void reverse(struct Node** head) {
     struct Node* prev = NULL;
     struct Node* current = *head;
@@ -40,7 +37,6 @@ void reverse(struct Node** head) {
     *head = prev;
 }
 
-// 打印链表元素
 void printList(struct Node* head) {
     struct Node* current = head;
     while (current) {
@@ -86,12 +82,11 @@ int main() {
     struct Node* list1 = NULL;
     struct Node* list2 = NULL;
 
-    // 从文件读取粒子数据到链表list1
     FILE *file = fopen("dataset/dataset_120.txt", "r");
     if (file) {
         char ch;
         while (fscanf(file, "%c", &ch) != EOF) {
-            int value = ch - '0'; // 将字符转换为整数
+            int value = ch - '0';
             insert(&list1, value);
         }
         fclose(file);
@@ -100,7 +95,6 @@ int main() {
         return 1;
     }
 
-    // 复制list1到list2并移除2
     struct Node* current = list1;
     while (current) {
         if (current->data != 2) {
@@ -115,12 +109,10 @@ int main() {
     printf("after remove 2: ");
     printList(list2);
 
-    // 相加數字序列
     struct Node* sumList = addLists(list1, list2);
     printf("sum two list : ");
     printList(sumList);
 
-    // 释放链表内存
     while (list1) {
         struct Node* temp = list1;
         list1 = list1->next;
